@@ -1,0 +1,460 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.calculator-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 
+        0 25px 45px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 30px;
+    min-height: 600px;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 25px;
+    grid-column: 1 / -1;
+}
+
+.calculator-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.mode-toggles {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mode-toggle {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.mode-toggle.active {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.display-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.memory-indicator {
+    display: none;
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.history-display {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    min-height: 25px;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.main-display {
+    color: white;
+    font-size: 3.5em;
+    font-weight: 300;
+    text-align: right;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    height: 55px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn.clicked {
+    transform: scale(0.95);
+}
+
+.btn-number {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-operator {
+    background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-function {
+    background: linear-gradient(145deg, #4ecdc4, #44a08d);
+    color: white;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.btn-special {
+    background: linear-gradient(145deg, #45b7d1, #3a9bc1);
+    color: white;
+    box-shadow: 0 4px 15px rgba(69, 183, 209, 0.3);
+}
+
+.btn-equals {
+    background: linear-gradient(145deg, #96ceb4, #85c1a5);
+    color: white;
+    box-shadow: 0 4px 15px rgba(150, 206, 180, 0.3);
+    grid-column: span 2;
+}
+
+.scientific-panel {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.scientific-panel .btn {
+    height: 45px;
+    font-size: 14px;
+}
+
+.memory-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.memory-btn {
+    height: 40px;
+    background: linear-gradient(145deg, #feca57, #ff9ff3);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memory-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(254, 202, 87, 0.3);
+}
+
+/* Age Calculator Full Space Layout */
+.age-calculator-panel {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 30px;
+    min-height: 500px;
+}
+
+.age-calculator-panel.active {
+    display: grid;
+}
+
+/* Hide display container when age calculator is active */
+.calculator-container.age-mode .display-container {
+    display: none;
+}
+
+.calculator-container.age-mode .left-panel {
+    display: none;
+}
+
+.calculator-container.age-mode .right-panel {
+    display: none;
+}
+
+.calculator-container.age-mode {
+    grid-template-columns: 1fr;
+}
+
+.age-input-section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    height: fit-content;
+}
+
+.age-result-section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.age-calculator-panel h3 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    grid-column: 1 / -1;
+}
+
+.age-input-group {
+    margin-bottom: 20px;
+}
+
+.age-input-group label {
+    display: block;
+    color: white;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.age-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.age-input-group input:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+}
+
+.calculate-age-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calculate-age-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.age-result {
+    color: white;
+}
+
+.age-result h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4ecdc4;
+}
+
+.age-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.age-item {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.age-number {
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+.age-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.age-stats {
+    margin-bottom: 15px;
+}
+
+.age-stats p {
+    margin: 6px 0;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.next-birthday {
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(145deg, #96ceb4, #85c1a5);
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.history-panel {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.history-panel h3 {
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.history-item {
+    padding: 8px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.error {
+    color: #ff6b6b;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        gap: 20px;
+    }
+    
+    .calculator-header {
+        grid-column: 1;
+    }
+    
+    .main-display {
+        font-size: 2.5em;
+    }
+
+    .age-calculator-panel {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 20px;
+    }
+    
+    .calculator-title {
+        font-size: 2em;
+    }
+    
+    .btn {
+        height: 50px;
+        font-size: 16px;
+    }
+    
+    .main-display {
+        font-size: 2em;
+    }
+    
+    .age-grid {
+        grid-template-columns: 1fr;
+    }
+}
