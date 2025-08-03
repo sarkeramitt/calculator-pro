@@ -219,7 +219,7 @@ body {
     box-shadow: 0 5px 15px rgba(254, 202, 87, 0.3);
 }
 
-/* Age Calculator Full Space Layout */
+/* Age Calculator - Hidden by default */
 .age-calculator-panel {
     display: none;
     background: rgba(255, 255, 255, 0.1);
@@ -227,27 +227,19 @@ body {
     padding: 25px;
     grid-column: 1 / -1;
     grid-row: 2;
-    display: grid;
     grid-template-columns: 400px 1fr;
     gap: 30px;
     min-height: 500px;
 }
 
-.age-calculator-panel.active {
-    display: grid;
-}
-
-/* Hide display container when age calculator is active */
-.calculator-container.age-mode .display-container {
-    display: none;
-}
-
-.calculator-container.age-mode .left-panel {
-    display: none;
-}
-
+/* When age calculator is active, hide normal calculator and show age calculator */
+.calculator-container.age-mode .left-panel,
 .calculator-container.age-mode .right-panel {
     display: none;
+}
+
+.calculator-container.age-mode .age-calculator-panel {
+    display: grid;
 }
 
 .calculator-container.age-mode {
